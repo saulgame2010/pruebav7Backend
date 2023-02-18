@@ -7,20 +7,32 @@ import com.sgarciam.pruebatecnica.repository.DocumentoJsonRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/document")
 public class DocumentController {
+    private final Logger logger = LoggerFactory.getLogger(DocumentController.class);
     @Autowired
     private DocumentoJsonRepository myDocumentRepository;
 
@@ -60,46 +72,32 @@ public class DocumentController {
     }
 
     @PostMapping("/export")
-    public void exportarObjetos(@RequestBody List<JsonObject> objetos, HttpServletResponse response) throws IOException {
-        // Crear un archivo Excel y una hoja de cálculo
+    public void exportarObjetos(@RequestBody List<Map<String, Object>> data, HttpServletResponse response) throws IOException {
+        // Create a new workbook and sheet
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Datos");
+        Sheet sheet = workbook.createSheet("Data");
 
-        // Escribir los encabezados en la primera fila
-        Row encabezados = sheet.createRow(0);
-        int colNum = 0;
-        for (String propiedad : objetos.get(0).getProperties().keySet()) {
-            Cell cell = encabezados.createCell(colNum++);
-            cell.setCellValue(propiedad);
-        }
-
-        // Escribir los datos en las filas restantes
-        int rowNum = 1;
-        for (JsonObject objeto : objetos) {
-            Row row = sheet.createRow(rowNum++);
-            colNum = 0;
-            for (Object valor : objeto.getProperties().values()) {
-                Cell cell = row.createCell(colNum++);
-                // Las siguientes sentencias If son para saber qué tipo de dato son las propiedades
-                if (valor instanceof String) {
-                    cell.setCellValue((String) valor);
-                } else if (valor instanceof Number) {
-                    cell.setCellValue(((Number) valor).doubleValue());
-                } else if (valor instanceof Boolean) {
-                    cell.setCellValue((Boolean) valor);
-                } else {
-                    cell.setCellValue(valor.toString());
-                }
+        // Add data to the sheet
+        int rowIndex = 0;
+        for (Map<String, Object> row : data) {
+            Row sheetRow = sheet.createRow(rowIndex++);
+            int cellIndex = 0;
+            for (Map.Entry<String, Object> entry : row.entrySet()) {
+                Cell cell = sheetRow.createCell(cellIndex++);
+                cell.setCellValue(entry.getKey());
+                cell = sheetRow.createCell(cellIndex++);
+                cell.setCellValue(String.valueOf(entry.getValue()));
             }
         }
 
-        // Establecer las cabeceras de respuesta y escribir el archivo Excel
-        response.setHeader("Content-disposition", "attachment; filename=datos.xlsx");
-        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        // Escribir el archivo Excel en la respuesta
-        OutputStream outputStream = response.getOutputStream();
+        // Write the workbook to a ByteArrayOutputStream
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         workbook.write(outputStream);
-        outputStream.close();
-        workbook.close();
+        byte[] bytes = outputStream.toByteArray();
+
+        // Set the response headers and write the file to the response body
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment; filename=data.xlsx");
+        response.getOutputStream().write(bytes);
     }
 }
