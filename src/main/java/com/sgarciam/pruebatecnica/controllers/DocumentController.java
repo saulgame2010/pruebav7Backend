@@ -1,32 +1,21 @@
 package com.sgarciam.pruebatecnica.controllers;
 
 import com.sgarciam.pruebatecnica.models.DocumentoJson;
-import com.sgarciam.pruebatecnica.models.JsonObject;
 import com.sgarciam.pruebatecnica.payload.response.MessageResponse;
 import com.sgarciam.pruebatecnica.repository.DocumentoJsonRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
