@@ -77,16 +77,26 @@ public class DocumentController {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Data");
 
+        // El siguiente bloque crea un estilo para las celdas, en este caso se agregarán los bordes
+        CellStyle style = workbook.createCellStyle();
+        style.setBorderTop(BorderStyle.THIN);
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setBorderRight(BorderStyle.THIN);
+
         // Add data to the sheet
         int rowIndex = 0;
         for (Map<String, Object> row : data) {
-            Row sheetRow = sheet.createRow(rowIndex++);
-            int cellIndex = 0;
+            Row spaceRow = sheet.createRow(rowIndex++);
+//            int cellIndex = 0;
             for (Map.Entry<String, Object> entry : row.entrySet()) {
-                Cell cell = sheetRow.createCell(cellIndex++);
+                Row sheetRow = sheet.createRow(rowIndex++);
+                Cell cell = sheetRow.createCell(0);
                 cell.setCellValue(entry.getKey());
-                cell = sheetRow.createCell(cellIndex++);
+                cell.setCellStyle(style);
+                cell = sheetRow.createCell(1);
                 cell.setCellValue(String.valueOf(entry.getValue()));
+                cell.setCellStyle(style);
             }
         }
 
