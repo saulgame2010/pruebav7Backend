@@ -1,3 +1,10 @@
+/*
+* Autor: Bezkoder
+* Referencia: https://www.bezkoder.com/spring-boot-jwt-authentication/
+* Esta clase se utiliza para la configuración de seguirdad de Spring y básicamente nos ayuda a configurar
+* el acceso a los recursos mediante un JWT válido.
+* */
+
 package com.sgarciam.pruebatecnica.security.jwt;
 
 import jakarta.servlet.ServletException;

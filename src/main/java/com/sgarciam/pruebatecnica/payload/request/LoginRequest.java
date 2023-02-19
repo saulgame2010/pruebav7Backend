@@ -1,3 +1,10 @@
+/*
+* Autor: Saúl García Medina con base en el código de Bezkoder
+* Referencia: https://www.bezkoder.com/spring-boot-jwt-authentication/
+* Esta clase nos sirve como auxiliar en la petición de inicio de sesión, puntualmente, se utiliza en el controlador
+* AuthController.java para el inicio de sesión del usuario. Ayudando a manejar los datos de inicio de sesión.
+* */
+
 package com.sgarciam.pruebatecnica.payload.request;
 
 import jakarta.validation.constraints.NotBlank;

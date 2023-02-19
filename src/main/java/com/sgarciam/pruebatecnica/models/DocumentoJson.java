@@ -1,3 +1,9 @@
+/*
+* Autor: Saúl García Medina
+* Clase para mapear la colección de la base de datos mongo para los documentos que se van a guardar,
+* esta clase crea la colección en la BD automáticamente.
+* */
+
 package com.sgarciam.pruebatecnica.models;
 
 import jakarta.validation.constraints.NotBlank;

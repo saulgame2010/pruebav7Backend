@@ -1,3 +1,10 @@
+/*
+ * Autor: Bezkoder
+ * Referencia: https://www.bezkoder.com/spring-boot-jwt-authentication/
+ * Esta clase sirve para validar los JWT y así dar o no acceso a los recursos de acuerdo a la validez
+ * del token, esto nos va a proporcionar la autenticación adecuada para el acceso a los recursos mediante JWT.
+ * */
+
 package com.sgarciam.pruebatecnica.security.jwt;
 
 import com.sgarciam.pruebatecnica.security.services.UserDetailsServiceImpl;

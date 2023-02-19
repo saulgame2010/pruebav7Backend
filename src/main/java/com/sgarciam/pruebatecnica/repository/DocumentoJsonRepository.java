@@ -1,3 +1,10 @@
+/*
+* Autor: Saúl García Medina
+* Esta interfaz extiende de MongoRepository para poder interactuar con la base de datos.
+* Aquí se describen los métodos a utilizar para esta interacción, en este caso, es para hacer las querys necesarias
+* para la colección de los documentos JSON.
+* */
+
 package com.sgarciam.pruebatecnica.repository;
 
 import com.sgarciam.pruebatecnica.models.DocumentoJson;

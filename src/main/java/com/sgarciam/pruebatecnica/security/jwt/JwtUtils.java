@@ -1,3 +1,10 @@
+/*
+ * Autor: Bezkoder
+ * Referencia: https://www.bezkoder.com/spring-boot-jwt-authentication/
+ * Esta clase contiene métodos para el manejo de los JWT, tales como validar el JWT, generarlo y obtener un usuario
+ * por su JWT
+ * */
+
 package com.sgarciam.pruebatecnica.security.jwt;
 
 import com.sgarciam.pruebatecnica.security.services.UserDetailsImpl;

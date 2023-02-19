@@ -1,3 +1,10 @@
+/*
+* Autor: Saúl García Medina con base en el código de Bezkoder
+* Referencia: https://www.bezkoder.com/spring-boot-jwt-authentication/
+* Este es el controlador encargado de manejar el inicio de sesión y el registro de usuarios haciendo uso
+* de JWT (JSON Web Tokens) para manejar las sesiones del lado del cliente.
+* */
+
 package com.sgarciam.pruebatecnica.controllers;
 
 import com.sgarciam.pruebatecnica.models.User;

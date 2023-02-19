@@ -1,3 +1,11 @@
+/*
+ * Autor: Saúl García Medina con base en el código de Bezkoder
+ * Referencia: https://www.bezkoder.com/spring-boot-jwt-authentication/
+ * Esta clase es para crear objetos los cuales tengan la información del JWT que se envía como respuesta
+ * al usuario cuando inicia sesión. Al crear un objeto de esta clase se crea el token, el ID del usuario y el nombre
+ * de usuario, esta información se envía como respuesta al cliente.
+ * */
+
 package com.sgarciam.pruebatecnica.payload.response;
 
 public class JwtResponse {

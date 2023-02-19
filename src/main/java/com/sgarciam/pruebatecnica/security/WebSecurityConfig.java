@@ -1,3 +1,10 @@
+/*
+* Autor: Saúl García Medina con base en código de Bezkoder y de Radhika Inguva
+* Referecnias:
+* https://medium.com/@radhika.inguva/get-rid-of-cors-origin-or-resource-sharing-error-spring-boot-angular-e8ea7b5989e2
+* https://www.bezkoder.com/spring-boot-jwt-authentication/
+* */
+
 package com.sgarciam.pruebatecnica.security;
 
 import com.sgarciam.pruebatecnica.security.jwt.AuthEntryPointJwt;

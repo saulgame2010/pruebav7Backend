@@ -1,3 +1,11 @@
+/*
+ * Autor: Bezkoder
+ * Referencia: https://www.bezkoder.com/spring-boot-jwt-authentication/
+ * Esta clase nos sirve para poder tener más información del usuario en caso de ser necesario.
+ * Por ejemplo, si quisiéramos obtener su ID o si en este caso quisiéramos obtener su email (si es que tuviéramos que
+ * guardarlo) podríamos obtenerlo mediante esta clase
+ * */
+
 package com.sgarciam.pruebatecnica.security.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

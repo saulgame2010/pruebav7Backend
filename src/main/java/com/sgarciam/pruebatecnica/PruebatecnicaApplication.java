@@ -1,3 +1,8 @@
+/*
+* Autor: Saúl García Medina
+* Método main de la aplicación
+* */
+
 package com.sgarciam.pruebatecnica;
 
 import org.springframework.boot.SpringApplication;

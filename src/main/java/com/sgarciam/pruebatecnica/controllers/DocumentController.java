@@ -1,3 +1,14 @@
+/*
+* Autor: Saúl García Medina
+* Este es el controlador encargado de hacer las operaciones de los documentos JSON
+* tales como guardar el documento JSON en la BD, hacer la búsqueda de documentos de acuerdo
+* con la cadena enviada al controlador y de hacer la exportación de los documentos buscados a un
+* archivo de Excel.
+* Referencias para hacer la exportación a Excel:
+* https://springjava.com/spring-boot/export-data-to-excel-file-in-spring-boot
+* https://www.codejava.net/frameworks/spring-boot/export-data-to-excel-example
+* */
+
 package com.sgarciam.pruebatecnica.controllers;
 
 import com.sgarciam.pruebatecnica.models.DocumentoJson;
@@ -62,7 +73,7 @@ public class DocumentController {
 
     @PostMapping("/export")
     public void exportarObjetos(@RequestBody List<Map<String, Object>> data, HttpServletResponse response) throws IOException {
-        // Create a new workbook and sheet
+        // Crea un nuevo libro y una hoja en excel
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Data");
 
@@ -73,11 +84,13 @@ public class DocumentController {
         style.setBorderLeft(BorderStyle.THIN);
         style.setBorderRight(BorderStyle.THIN);
 
-        // Add data to the sheet
+        // Agrega los datos a la hoja de excel
         int rowIndex = 0;
+        // En este for recorremos cada documento JSON con un objeto Map
         for (Map<String, Object> row : data) {
             Row spaceRow = sheet.createRow(rowIndex++);
 //            int cellIndex = 0;
+            // En este for recorremos cada elemento del objeto JSON en el que se encuentra la iteración del for anterior
             for (Map.Entry<String, Object> entry : row.entrySet()) {
                 Row sheetRow = sheet.createRow(rowIndex++);
                 Cell cell = sheetRow.createCell(0);
@@ -89,12 +102,15 @@ public class DocumentController {
             }
         }
 
-        // Write the workbook to a ByteArrayOutputStream
+        // Escribimos el libro en un ByteArrayOutputStream
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         workbook.write(outputStream);
         byte[] bytes = outputStream.toByteArray();
 
-        // Set the response headers and write the file to the response body
+        // Establecemos los headers necesarios en la respuesta y escribimos el archivo en la misma.
+        // Se usó como base la siguiente fuente: https://springjava.com/spring-boot/export-data-to-excel-file-in-spring-boot
+        // en el código de StudentController.java
+        // También se usó la siguiente referencia: https://www.codejava.net/frameworks/spring-boot/export-data-to-excel-example
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-Disposition", "attachment; filename=data.xlsx");
         response.getOutputStream().write(bytes);
